@@ -32,7 +32,7 @@ spec:
     - host: {{ . | quote }}
       http:
         paths:
-          - path: /{{ include "helm-template.namespace" .  }}/{{ include "helm-template.name" . }}/?(.*)
+          - path: /{{ .Values.namespace  }}/{{ include "helm-template.name" . }}/?(.*)
             backend:
               serviceName: {{ $fullName }}
               servicePort: http
