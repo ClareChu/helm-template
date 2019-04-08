@@ -1,7 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "helm-template.fullname" . }}
+  name: {{ include "helm-template.name" . }}
+  namespace: {{ include "helm-template.namespace" . }}
   labels:
     app.kubernetes.io/name: {{ include "helm-template.name" . }}
     helm.sh/chart: {{ include "helm-template.chart" . }}
@@ -10,10 +11,14 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: 8080
       targetPort: http
       protocol: TCP
       name: http
+    - port: 7575
+      targetPort: grpc
+      protocol: TCP
+      name: grpc      
   selector:
     app.kubernetes.io/name: {{ include "helm-template.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}

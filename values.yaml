@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: nginx
   tag: stable
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 nameOverride: ""
 fullnameOverride: ""
@@ -17,13 +17,13 @@ service:
   port: 80
 
 ingress:
-  enabled: false
+  enabled: true
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   path: /
   hosts:
-    - chart-example.local
+    - test.sixunyun.com.cn
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:

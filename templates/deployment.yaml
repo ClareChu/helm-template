@@ -1,7 +1,8 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ include "helm-template.fullname" . }}
+  name: {{ include "helm-template.name" . }}
+  namespace: {{ include "helm-template.namespace" . }}
   labels:
     app.kubernetes.io/name: {{ include "helm-template.name" . }}
     helm.sh/chart: {{ include "helm-template.chart" . }}
@@ -25,16 +26,11 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
+            - name: grpc
+              containerPort: 7575
+              protocol: TCP
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
