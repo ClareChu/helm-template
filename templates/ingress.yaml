@@ -5,7 +5,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ $fullName }}
-  namespace: {{ include "helm-template.namespace" . }}
+  namespace: {{ .Values.namespace }}
   labels:
     app.kubernetes.io/name: {{ include "helm-template.name" . }}
     helm.sh/chart: {{ include "helm-template.chart" . }}
